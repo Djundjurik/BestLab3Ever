@@ -2,6 +2,18 @@ print('Добро пожаловать на завод.')
 
 #Создаем 3 родительских класса, чтобы потом унаследовать их методы и атрибуты#
 
+
+#Класс тонировки новый класс, который я добавил#
+class Toning:
+    def addpt(self,x):
+        self.p_stekla[x-1] = 'Тонированное стекло'
+    def delpt(self,x):
+        self.p_stekla[x-1] = 'Обычное стекло'
+    def addzt(self,x):
+        self.z_stekla[x-1] = 'Тонированное стекло'
+    def delzt(self,x):
+        self.z_stekla[x-1] = 'Обычное стекло'
+        
 #Класс сидений новый класс, который я добавил#
 class Seating:
     def addps(self,x):
@@ -12,6 +24,7 @@ class Seating:
         self.z_sidenia[x-1] = 'Есть место для сидения'
     def delzs(self,x):
         self.z_sidenia[x-1] = 'Нет места для сидения'
+
 
 
 class Wheel:
@@ -47,7 +60,8 @@ class Dveri:
         
 
 #Создаём дочерний класс, как выше уже говорилось этот класс унаследовал характеристики и способности 3 классов свыше#
-class Car(Seating,Wheel,Fara,Dveri):
+
+class Car(Seating,Toning,Wheel,Fara,Dveri):
 
     def __init__(self, color = None, model = None, body = None, year = None):
         self.aboba = None
@@ -60,6 +74,10 @@ class Car(Seating,Wheel,Fara,Dveri):
         self.z_fara = ['выкл']*2
         self.povor = ['выкл']*2
         self.doors = ['Закрыто']*4
+
+        self.p_stekla = ['Обычное стекло']*2
+        self.z_stekla = ['Обычное стекло']*2
+
         self.p_sidenia = ['Есть место для сидения']*2
         self.z_sidenia = ['Есть место для сидения']*2
 
@@ -107,7 +125,11 @@ class Interface():
                 print('5. Поменять/удалить колёса')
                 print('6. Открыть/закрыть двери')
                 print('7. Настройка фар и поворотников')
-                print('8. Настройка мест сидений')
+
+                print('8. Настройка тонировки стёкол')
+
+                print('9. Настройка мест сидений')
+
                 print('0. Назад')
                 b = input()
 #Изменение модели#
@@ -192,8 +214,33 @@ class Interface():
                             print('Выберите какой поворотник выключить')
                             massiv[i].Offpov(int(input()))
 
-#Настройка тех самых сидений#
+#Настройка той самой тонировки#
                 if b == '8':
+                    c = ''
+                    while c != '0':
+                        print('Стёкла спереди:', massiv[i].p_stekla)
+                        print('Стёкла сзади:', massiv[i].z_stekla)
+                        print('1.Добавить тонировку спереди')
+                        print('2.Убрать тонировку спереди')
+                        print('3.Добавить тонировку сзади')
+                        print('4.Убрать тонировку сзади')
+                        print('0.Выход')
+                        c = input()
+                        if c == '1':
+                            print('Выберите какое из передних стёкол затонировать')
+                            massiv[i].addpt(int(input()))
+                        if c == '2':
+                            print('Выберите с какого переднего стекла убрать тонировку')
+                            massiv[i].delpt(int(input()))
+                        if c == '3':
+                            print('Выберите какое из задних стёкол затонировать')
+                            massiv[i].addzt(int(input()))
+                        if c == '4':
+                            print('Выберите с какого заднего стекла убрать тонировку')
+                            massiv[i].delzt(int(input()))
+
+#Настройка тех самых сидений#
+                if b == '9':
                     c = ''
                     while c != '0':
                         print('Места спереди:', massiv[i].p_sidenia)
@@ -216,6 +263,7 @@ class Interface():
                         if c == '4':
                             print('Выберите какое сидение сзади вы хотите убрать')
                             massiv[i].delzs(int(input()))
+
                             
                         
 
@@ -238,6 +286,7 @@ class Interface():
                     if massiv[i].body != None:
                         print('Кузов-', massiv[i].body)
                     if massiv[i].year != None:
+
                         print('Год выпуска-', massiv[i].year)
                         print('Колёса-', massiv[i].colesa)
                         print('Двери-', massiv[i].doors)
