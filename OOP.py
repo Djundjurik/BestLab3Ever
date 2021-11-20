@@ -1,6 +1,19 @@
 print('Добро пожаловать на завод, производящий автомобили по вашему вкусу и желанию.')
 
 #Создаем 3 родительских класса, чтобы потом унаследовать их методы и атрибуты#
+
+#Класс тонировки новый класс, который я добавил#
+class Toning:
+    def addpt(self,x):
+        self.p_stekla[x-1] = 'Тонированное стекло'
+    def delpt(self,x):
+        self.p_stekla[x-1] = 'Обычное стекло'
+    def addzt(self,x):
+        self.z_stekla[x-1] = 'Тонированное стекло'
+    def delzt(self,x):
+        self.z_stekla[x-1] = 'Обычное стекло'
+
+
 class Wheel:
     def Addk(self,x):
         self.colesa[x-1] = 'Обычное колесо'
@@ -34,7 +47,7 @@ class Dveri:
         
 
 #Создаём дочерний класс, как выше уже говорилось этот класс унаследовал характеристики и способности 3 классов свыше#
-class Car(Wheel,Fara,Dveri):
+class Car(Toning,Wheel,Fara,Dveri):
 
     def __init__(self, color = None, model = None, body = None, year = None):
         self.aboba = None
@@ -47,6 +60,8 @@ class Car(Wheel,Fara,Dveri):
         self.z_fara = ['выкл']*2
         self.povor = ['выкл']*2
         self.doors = ['Закрыто']*4
+        self.p_stekla = ['Обычное стекло']*2
+        self.z_stekla = ['Обычное стекло']*2
 
 
 #Это просто менюшка#    
@@ -92,6 +107,7 @@ class Interface():
                 print('5. Поменять/удалить колёса')
                 print('6. Открыть/закрыть двери')
                 print('7. Настройка фар и поворотников')
+                print('8. Настройка тонировки стёкол')
                 print('0. Назад')
                 b = input()
 #Изменение модели#
@@ -176,6 +192,33 @@ class Interface():
                             print('Выберите какой поворотник выключить')
                             massiv[i].Offpov(int(input()))
 
+#Настройка той самой тонировки#
+                if b == '8':
+                    c = ''
+                    while c != '0':
+                        print('Стёкла спереди:', massiv[i].p_stekla)
+                        print('Стёкла сзади:', massiv[i].z_stekla)
+                        print('1.Добавить тонировку спереди')
+                        print('2.Убрать тонировку спереди')
+                        print('3.Добавить тонировку сзади')
+                        print('4.Убрать тонировку сзади')
+                        print('0.Выход')
+                        c = input()
+                        if c == '1':
+                            print('Выберите какое из передних стёкол затонировать')
+                            massiv[i].addpt(int(input()))
+                        if c == '2':
+                            print('Выберите с какого переднего стекла убрать тонировку')
+                            massiv[i].delpt(int(input()))
+                        if c == '3':
+                            print('Выберите какое из задних стёкол затонировать')
+                            massiv[i].addzt(int(input()))
+                        if c == '4':
+                            print('Выберите с какого заднего стекла убрать тонировку')
+                            massiv[i].delzt(int(input()))
+                            
+                        
+
 #3 строка здесь можно посмотреть на характеристики той или иной машины, которая у тебя уже есть#
             elif a == '3':
                 if len(massiv) == 0:
@@ -198,7 +241,8 @@ class Interface():
                         print('4)Год выпуска-', massiv[i].year)
                         print('5)Колёса-', massiv[i].colesa)
                         print('6)Двери-', massiv[i].doors)
-                        print('7)Фары: 1)Передние фары: ', massiv[i].p_fara,'\n2)Задние фары: ',massiv[i].z_fara,'\n3)Поворотники: ',massiv[i].povor)
+                        print('7)Фары: \n1)Передние фары: ', massiv[i].p_fara,'\n2)Задние фары: ',massiv[i].z_fara,'\n3)Поворотники: ',massiv[i].povor)
+                        print('8)Стёкла: \n1)Стёкла спереди: ', massiv[i].p_stekla, '\n2)Стёкла сзади', massiv[i].z_stekla)
                     
 #4 строка просмотр своих, уже имеющихся, машин#
             elif a == '4':
