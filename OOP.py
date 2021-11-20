@@ -1,6 +1,7 @@
-print('Добро пожаловать на завод, производящий автомобили по вашему вкусу и желанию.')
+print('Добро пожаловать на завод.')
 
 #Создаем 3 родительских класса, чтобы потом унаследовать их методы и атрибуты#
+
 
 #Класс тонировки новый класс, который я добавил#
 class Toning:
@@ -12,6 +13,18 @@ class Toning:
         self.z_stekla[x-1] = 'Тонированное стекло'
     def delzt(self,x):
         self.z_stekla[x-1] = 'Обычное стекло'
+        
+#Класс сидений новый класс, который я добавил#
+class Seating:
+    def addps(self,x):
+        self.p_sidenia[x-1] = 'Есть место для сидения'
+    def delps(self,x):
+        self.p_sidenia[x-1] = 'Нет места для сидения'
+    def addzs(self,x):
+        self.z_sidenia[x-1] = 'Есть место для сидения'
+    def delzs(self,x):
+        self.z_sidenia[x-1] = 'Нет места для сидения'
+
 
 
 class Wheel:
@@ -25,17 +38,17 @@ class Wheel:
 
 class Fara:
     def Onp(self,x):
-        self.p_fara[x-1] = 'вкл'
+        self.p_fara[x-1] = 'Вкл'
     def Offp(self,x):
-        self.p_fara[x-1] = 'выкл'
+        self.p_fara[x-1] = 'Выкл'
     def Onz(self,x):
-        self.z_fara[x-1] = 'вкл'
+        self.z_fara[x-1] = 'Вкл'
     def Offz(self,x):
-        self.z_fara[x-1] = 'выкл'
+        self.z_fara[x-1] = 'Выкл'
     def Onpov(self,x):
-        self.povor[x-1] = 'вкл'
+        self.povor[x-1] = 'Вкл'
     def Offpov(self,x):
-        self.povor[x-1] = 'выкл'
+        self.povor[x-1] = 'Выкл'
 
 
 class Dveri:
@@ -47,7 +60,8 @@ class Dveri:
         
 
 #Создаём дочерний класс, как выше уже говорилось этот класс унаследовал характеристики и способности 3 классов свыше#
-class Car(Toning,Wheel,Fara,Dveri):
+
+class Car(Seating,Toning,Wheel,Fara,Dveri):
 
     def __init__(self, color = None, model = None, body = None, year = None):
         self.aboba = None
@@ -55,13 +69,17 @@ class Car(Toning,Wheel,Fara,Dveri):
         self.model = model
         self.body = body
         self.year = year
-        self.colesa = ['Обычнок колесо']*4
+        self.colesa = ['Обычное колесо']*4
         self.p_fara = ['выкл']*2
         self.z_fara = ['выкл']*2
         self.povor = ['выкл']*2
         self.doors = ['Закрыто']*4
+
         self.p_stekla = ['Обычное стекло']*2
         self.z_stekla = ['Обычное стекло']*2
+
+        self.p_sidenia = ['Есть место для сидения']*2
+        self.z_sidenia = ['Есть место для сидения']*2
 
 
 #Это просто менюшка#    
@@ -93,9 +111,9 @@ class Interface():
                 print('Какой кузов предпочитаете?')
                 massiv[k-1].body = input()
 
-#2 строка (самая лютая) здесь ты меняешь определённые параметры машины#    
+#2 строка (мега лютая) здесь ты меняешь определённые параметры машины#    
             elif a == '2':
-                print('Параметры какого автомобился хотите изменить?')
+                print('Параметры какого автомобиля хотите изменить?')
                 for i in range(len(massiv)):
                     print(i+1,') ',massiv[i].model, sep = '')
                 i = int(input())-1
@@ -107,7 +125,11 @@ class Interface():
                 print('5. Поменять/удалить колёса')
                 print('6. Открыть/закрыть двери')
                 print('7. Настройка фар и поворотников')
+
                 print('8. Настройка тонировки стёкол')
+
+                print('9. Настройка мест сидений')
+
                 print('0. Назад')
                 b = input()
 #Изменение модели#
@@ -131,7 +153,7 @@ class Interface():
                     c = ''
                     while c != '0':
                         print(massiv[i].colesa)
-                        print('1. Добавить обычное колесо\n2. Добавить зимнее колесо\n3. Удалить колесо\n0.Выход')
+                        print('1. Добавить обычное колесо', '2. Добавить зимнее колесо', '3. Удалить колесо', '0.Выход', sep ='\n')
                         c = input()
                         if c == '1':
                             print('Введите номер колеса, которое хотите заменить')
@@ -216,6 +238,32 @@ class Interface():
                         if c == '4':
                             print('Выберите с какого заднего стекла убрать тонировку')
                             massiv[i].delzt(int(input()))
+
+#Настройка тех самых сидений#
+                if b == '9':
+                    c = ''
+                    while c != '0':
+                        print('Места спереди:', massiv[i].p_sidenia)
+                        print('Места сзади:', massiv[i].z_sidenia)
+                        print('1.Добавить сидение спереди')
+                        print('2.Убрать сидение спереди')
+                        print('3.Добавить сидение сзади')
+                        print('4.Убрать сидение сзади')
+                        print('0.Выход')
+                        c = input()
+                        if c == '1':
+                            print('Выберите куда спереди вы хотите добавить сидение')
+                            massiv[i].addps(int(input()))
+                        if c == '2':
+                            print('Выберите какое сидение спереди вы хотите убрать')
+                            massiv[i].delps(int(input()))
+                        if c == '3':
+                            print('Выберите куда сзади вы хотите добавить сидение')
+                            massiv[i].addzs(int(input()))
+                        if c == '4':
+                            print('Выберите какое сидение сзади вы хотите убрать')
+                            massiv[i].delzs(int(input()))
+
                             
                         
 
@@ -232,17 +280,19 @@ class Interface():
                     if i == -1:
                         a = Interface()
                     if massiv[i].model != None:
-                        print('1)Модель-', massiv[i].model)
+                        print('Модель-', massiv[i].model)
                     if massiv[i].color != None:
-                        print('2)Цвет-', massiv[i].color)
+                        print('Цвет-', massiv[i].color)
                     if massiv[i].body != None:
-                        print('3)Кузов-', massiv[i].body)
+                        print('Кузов-', massiv[i].body)
                     if massiv[i].year != None:
-                        print('4)Год выпуска-', massiv[i].year)
-                        print('5)Колёса-', massiv[i].colesa)
-                        print('6)Двери-', massiv[i].doors)
-                        print('7)Фары: \n1)Передние фары: ', massiv[i].p_fara,'\n2)Задние фары: ',massiv[i].z_fara,'\n3)Поворотники: ',massiv[i].povor)
-                        print('8)Стёкла: \n1)Стёкла спереди: ', massiv[i].p_stekla, '\n2)Стёкла сзади', massiv[i].z_stekla)
+
+                        print('Год выпуска-', massiv[i].year)
+                        print('Колёса-', massiv[i].colesa)
+                        print('Двери-', massiv[i].doors)
+                        print('Фары: \n   Передние фары: ', massiv[i].p_fara,'\n   Задние фары: ',massiv[i].z_fara,'\n   Поворотники: ',massiv[i].povor)
+                        print('Места для сидения: \n   Места спереди: ', massiv[i].p_sidenia, '\n   Места сзади', massiv[i].z_sidenia)
+                    print()
                     
 #4 строка просмотр своих, уже имеющихся, машин#
             elif a == '4':
